@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/* variables */
+@import "./variables.css";
+
+/* commons */
+@import "./atomic.css";
+
+/* atoms */
+@import "./atomic.css";
