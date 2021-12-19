@@ -25,7 +25,7 @@ export const AuthHOC: React.FC<IProps> = ({ onAuthSuccess, onAuthFailure, onLogo
       setLoading(true);
       (async () => {
         const authResponse = await Services.AuthApi.authenticateToken({ accessToken });
-        onAuthSuccess(authResponse)
+        onAuthSuccess(authResponse);
       })().catch((error) => {
         console.error(error);
         LocalStorage.removeItem(LocalStorageEnum.ACCESS_TOKEN);
@@ -37,6 +37,7 @@ export const AuthHOC: React.FC<IProps> = ({ onAuthSuccess, onAuthFailure, onLogo
       });
     } else {
       onAuthFailure();
+      setMounting(true);
     }
   }
 

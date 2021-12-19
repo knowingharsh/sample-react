@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route, Navigate, useNavigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { ChangePassword, Login } from '../components';
 import Dashboard from '../components/dashboard';
 import AuthProvider from '../components/auth/auth.component';
@@ -12,7 +12,7 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <AuthProvider >
+        <AuthProvider>
           <Routes>
             <Route path={RoutesConfig.Application} element={<PublicApp />} >
               <Route path={RoutesConfig.Login} element={<Login />} />

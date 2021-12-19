@@ -18,6 +18,8 @@ export const Login: React.FC<IProps> = () => {
     (async () => {
       const authResponse = await Services.AuthApi.login({ userName: form.userName, password: form.password });
       const { accessToken, renewToken } = authResponse;
+      // if you want to have otp screen, then don't set in localStorage & retrigger, 
+      // instead pass-on this token to OTP component, and then handel the localStorage & retrigger from there
       LocalStorage.setItem(LocalStorageEnum.ACCESS_TOKEN, accessToken);
       LocalStorage.setItem(LocalStorageEnum.RENEW_TOKEN, renewToken);
       retriggerAuth();
@@ -33,7 +35,7 @@ export const Login: React.FC<IProps> = () => {
   return (
     <div className='Login_container'>
       {loading ? 'loading...' : null}
-      {/* Form Component */}
+      Login Form Component
     </div>
   );
 }
