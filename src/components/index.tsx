@@ -1,1 +1,1 @@
-export { Login, ChangePassword } from './lazy-components';
+export { Login, ChangePassword,Dashboard } from './lazy-components';

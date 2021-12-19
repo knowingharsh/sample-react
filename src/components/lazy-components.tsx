@@ -52,3 +52,8 @@ export const ChangePassword: any = lazyImport(() =>
   import(/* webpackChunkName: "change-password" */ './change-password'), {
   name: 'change-password'
 });
+
+export const Dashboard: any = lazyImport(() =>
+  import(/* webpackChunkName: "dashboard" */ './dashboard'), {
+  name: 'dashboard'
+});
