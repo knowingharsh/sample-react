@@ -1,6 +1,6 @@
 import React from "react";
 import { LocalStorage, LocalStorageEnum } from "../../lib/local-storage";
-import { Services } from "../../service";
+import { Services } from "../../services";
 import { AuthContext } from "../auth/auth.hoc";
 import { LoginForm } from "./login.form";
 

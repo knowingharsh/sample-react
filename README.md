@@ -1,46 +1,41 @@
-# Getting Started with Create React App
+# Folder Structure
+every folder which exposes anythign to outside its module should have `index.ts{x}` file to expose it.
+### `/src/atoms`
+This contains the designing library, decoupled, reusable components, which do no have side effects.<br/>
+example : buttons, cards, forms, icons, lists, modals, notifications, panels, tables, tabs, etc.
+### `/src/components`
+This contains the components that are used in the application, these can be fatures or sections grouped together with api calls, business logic, flow logic onto its respective files.<br/>
+example : home, login, signup, etc.<br/>
+all the component must be named `{name}.component.tsx` if it contains a util then it should be `{name}.util.tsx`<br/>
+`lazy-components` are used to load the components lazily, this is done to reduce the bundle size and improve the performance of the application.<br/>
+### `/src/pages`
+This contains the pages that are used in the application, we are using `<Outlet/>` for layout-ing them under a page. <br/>
+Check the routing library `react-router-dom` for the same.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### `/src/lib`
+contains all library creation and usage wrapper, such as localStorage wrapper and axios.
 
-## Available Scripts
+### `/src/service`
+contains all API calls, mutation and query signatures.
 
-In the project directory, you can run:
+### `/src/configurations`
+this will have all the configuration files, such as environment variables, api endpoints, etc.
 
-### `npm start`
+### `/src/assets`
+this will include styles, images, fonts, etc.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### `/src/redux`
+this contains redux related files, such as reducers, actions, etc.
+use toolkit to create reducers and actions slices.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+# General Guidelines
+### be very careful with the atoms, treat them like a library which anyone can use, avoid adding dependency and increase coupling.
+- naming conventions `{name}.component.tsx` will be components.
+- naming conventions `{name}.service.tsx` will be api calls.
+- naming conventions `{name}.slice.tsx` will be reducers and actions.
+- naming conventions `{name}.pages.tsx` will be layouts with outlets.
+- `variable.css` will have css variables.
+- `atomic.css` will have one liner css selectors.
+- `{name}.css` will be imported from their respective folders example : `/src/components/auth/auth.css` will be imported to `/src/assets/styles/index.css`.
+### Don't put every small thing onto redux, use this only if you need to use data in more than one place. 

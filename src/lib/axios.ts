@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { EnvConfig, EndPointsConfig } from '../configurations';
-import { Services } from '../service';
+import { Services } from '../services';
 import { LocalStorage, LocalStorageEnum } from './local-storage';
 
 const publicAxios = axios.create({
