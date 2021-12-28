@@ -1,21 +1,23 @@
 import axios from 'axios';
-import { EnvConfig } from '../configurations';
+import { EnvConfig, EndPointsConfig } from '../configurations';
 import { Services } from '../service';
 import { LocalStorage, LocalStorageEnum } from './local-storage';
 
 const publicAxios = axios.create({
-  baseURL: EnvConfig.API_URL,
+  baseURL: EnvConfig.API_URL + EndPointsConfig.open,
+  method: 'POST'
 });
 
 const privateAxios = axios.create({
-  baseURL: EnvConfig.API_URL,
+  baseURL: EnvConfig.API_URL + EndPointsConfig.private,
+  method: 'POST'
 });
 
 
 privateAxios.interceptors.request.use((config) => {
   config.headers = {
     ...config.headers,
-    Authorization: `Bearer ${LocalStorage.getItem(LocalStorageEnum.ACCESS_TOKEN)}`,
+    Authorization: `${LocalStorage.getItem(LocalStorageEnum.ACCESS_TOKEN)}`,
   };
   return config;
 }, (error) => {
@@ -31,7 +33,7 @@ privateAxios.interceptors.response.use((config) => config, async (error) => {
       const { accessToken } = await Services.AuthApi.getAccessTokenFromRefreshToken({ renewToken: LocalStorage.getItem(LocalStorageEnum.RENEW_TOKEN) });
       isAlreadyFetchingAccessToken = false;
       if (accessToken) {
-        error.config.headers.Authorization = `Bearer ${LocalStorage.getItem(LocalStorageEnum.ACCESS_TOKEN)}`;
+        error.config.headers.Authorization = `${LocalStorage.getItem(LocalStorageEnum.ACCESS_TOKEN)}`;
         return publicAxios.request(error.config);
       }
     })().catch(() => Promise.reject(error));

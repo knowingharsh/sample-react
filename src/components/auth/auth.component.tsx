@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { RoutesConfig } from '../../configurations';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { useAppDispatch } from '../../redux/hooks';
 import { resetUser, setUser } from '../../redux/user.slice';
 import { AuthHOC } from './auth.hoc';
 
@@ -20,7 +20,6 @@ const AuthProvider: React.FC<any> = ({ children }) => {
 
   const onAuthSuccess = (authData: any) => {
     // store data to reducer
-    console.log('AUTH DATA in Auth COMPONENT', authData);
     dispatch(setUser(authData));
     // navigate to dashboard
     navigate(RoutesConfig.Dashboard, { replace: true });

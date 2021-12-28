@@ -17,14 +17,14 @@ interface IProps {
 export const AuthHOC: React.FC<IProps> = ({ onAuthSuccess, onAuthFailure, onLogout, children, }) => {
 
   const [loading, setLoading] = React.useState<boolean>(false);
-  const [mounting, setMounting] = React.useState<boolean>(false);
+  const [mounted, setMounted] = React.useState<boolean>(false);
 
   const retriggerAuth = () => { /* can be called after login */
     const accessToken = LocalStorage.getItem(LocalStorageEnum.ACCESS_TOKEN);
     if (accessToken) {
       setLoading(true);
       (async () => {
-        const authResponse = await Services.AuthApi.authenticateToken({ accessToken });
+        const authResponse = await Services.AuthApi.authenticateToken();
         onAuthSuccess(authResponse);
       })().catch((error) => {
         console.error(error);
@@ -33,11 +33,11 @@ export const AuthHOC: React.FC<IProps> = ({ onAuthSuccess, onAuthFailure, onLogo
         onAuthFailure();
       }).finally(() => {
         setLoading(false);
-        setMounting(true);
+        setMounted(true);
       });
     } else {
       onAuthFailure();
-      setMounting(true);
+      setMounted(true);
     }
   }
 
@@ -55,7 +55,7 @@ export const AuthHOC: React.FC<IProps> = ({ onAuthSuccess, onAuthFailure, onLogo
     <>
       <AuthContext.Provider value={{ retriggerAuth, logout }}>
         {loading ? 'loading...' : null}
-        {mounting ? children : null}
+        {mounted ? children : null}
       </AuthContext.Provider>
     </>
   )

@@ -5,12 +5,18 @@ import type { RootState } from './store';
 interface UserState {
   name: string,
   email: string,
+  first_name:string,
+  last_name : string,
+  userId: string,
 }
 
 // Define the initial state using that type
 const initialState: UserState = {
   name: '',
   email: '',
+  first_name:'',
+  last_name : '',
+  userId: '',
 }
 
 export const userSlice = createSlice({
@@ -18,11 +24,13 @@ export const userSlice = createSlice({
   // `createSlice` will infer the state type from the `initialState` argument
   initialState,
   reducers: {
-    setUser: (state, action: PayloadAction<any>) => {
-      state = { ...action.payload };
+    setUser: (state, { payload}: PayloadAction<any>) => {
+      state =  payload
+      return state;
     },
     resetUser: state => {
       state = { ...initialState };
+      return state;
     },
   }
 })
